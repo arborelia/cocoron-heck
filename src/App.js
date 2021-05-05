@@ -1,6 +1,8 @@
-import logo from './logo.svg';
 import './App.css';
 import React from 'react';
+import shuffle from 'knuth-shuffle-seeded';
+
+var seedrandom = require('seedrandom');
 
 const HEADS = [
   "HERO", "NINJA", "ROBOT", "ALIEN", "FIGHTER", "MONSTER", "GHOST", "?"
@@ -19,6 +21,7 @@ const LEVELS = [
   "Star Hill",
   "Ice-Fire Mountain"
 ]
+const N_CHARACTERS = 6;
 
 
 class Character extends React.Component {
@@ -35,20 +38,96 @@ class Character extends React.Component {
     return (
       <div className="character">
         <ul className="characterDesc">
-          <li className="head">Head: <span class="gameText">{headWord}</span></li>
-          <li className="body">Body: <span class="gameText">{bodyWord}</span></li>
-          <li className="weapon">Weapon: <span class="gameText">{weaponWord}</span></li>
+          <li key="head" className="head">Head: <span className="gameText">{headWord}</span></li>
+          <li key="body" className="body">Body: <span className="gameText">{bodyWord}</span></li>
+          <li key="weapon" className="weapon">Weapon: <span className="gameText">{weaponWord}</span></li>
         </ul>
       </div>
     );
   }
 }
 
+class LevelOrder extends React.Component {
+  render() {
+    return (
+      <div className="levelOrder">
+        Level order: <span className="levels">{this.props.levels.join(" ⭢ ")}</span>
+      </div>
+    )
+  }
+}
+
+class RandomChoices extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      seed: props.seed,
+      levels: [],
+      chars: []
+    }
+
+    this.randomize();
+  }
+
+  randIndex(length, rng) {
+    return Math.floor(rng() * length);
+  }
+
+  randomize() {
+    var rng = seedrandom(this.state.seed);
+    var heads = [];
+    var bodies = [];
+    var weapons = [];
+    var levels = [...LEVELS];
+    var characters = [];
+    shuffle(levels, this.state.seed);
+
+    for (var i = 0; i < N_CHARACTERS; i++) {
+      var head = -1;
+      while (head === -1 || heads.includes(head)) {
+        head = this.randIndex(8, rng);
+      }
+      heads.push(head);
+
+      var body = -1;
+      while (body === -1 || bodies.includes(body)) {
+        body = this.randIndex(8, rng);
+      }
+      bodies.push(body);
+
+      var weapon = -1;
+      while (weapon === -1 || weapons.includes(weapon)) {
+        weapon = this.randIndex(8, rng);
+      }
+      weapons.push(weapon);
+
+      characters.push(
+        new Character(
+          { head: head, body: body, weapon: weapon }
+        )
+      );
+    }
+    this.levels = levels;
+    this.chars = characters;
+  }
+
+  render() {
+    console.log(this.levels);
+    return (
+      <div className="randomChoices">
+        <LevelOrder levels={this.levels} />
+        <div className="chars">
+          {this.chars.map(char => char.render())}
+        </div>
+      </div>
+    );
+  }
+}
 
 function App() {
   return (
     <div className="App">
-      <Character head="1" body="2" weapon="3" />
+      <RandomChoices seed="42069" />
     </div>
   );
 }
