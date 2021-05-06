@@ -136,7 +136,7 @@ function randIndex(length, rng) {
 
 function RandomChoices(props) {
   var options = props.options;
-  var rng = seedrandom(options.seed);
+  var rng = seedrandom(options.seed.toString());
 
   var levels = [...LEVELS];
   if (!options.includeHouse) {
