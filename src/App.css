@@ -1,9 +1,61 @@
-div.character {
-  display: inline-block;
-  border: 1px solid gray;
-  width: 12em;
+@font-face {
+  font-family: PressStart;
+  src: url(fonts/PrStart.ttf);
 }
 
-ul.characterDesc {
+div.character {
+  border: 1px solid white;
+  background-color: #3df;
+  margin-left: 0.5ex;
+  width: 400px;
+  padding: 1ex;
+}
+
+div.character-column {
+  display: inline-block;
+  float: left;
+  width: 420px;
+  margin-bottom: 2ex;
+}
+
+div.level-column {
+  display: inline-block;
+  width: 420px;
+  margin-left: 2em;
+  line-height: 3ex;
+}
+
+div.levelOrder {
+  margin-top: 2ex;
+}
+
+.levelList {
+  padding-top: 1ex;
+}
+
+.gameText {
+  font-family: PressStart;
+}
+
+td.gameText {
+  padding-left: 0.5em;
+}
+
+td.sprite {
+  width: 140px;
+  image-rendering: pixelated;
+}
+
+ul {
   list-style-type: none;
+  padding: 0;
+}
+
+.seedInput {
+  margin-top: 1ex;
+}
+
+body {
+  margin-left: 1ex;
+  margin-right: 1ex;
 }
