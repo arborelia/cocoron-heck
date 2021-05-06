@@ -9,6 +9,7 @@ import spritesheet_blue from './images/cocoron-sheet-blue.gif';
 import spritesheet_purple from './images/cocoron-sheet-purple.gif';
 import spritesheet_pink from './images/cocoron-sheet-pink.gif';
 import weapon_sheet from './images/item-sheet-2.png';
+import makeName from './names';
 
 const HEADS = [
   "HERO", "NINJA", "ROBOT", "ALIEN", "FIGHTER", "MONSTER", "GHOST", "?"
@@ -90,6 +91,10 @@ class Character extends React.Component {
 
     return (
       <div className="character">
+        <div className="characterName">
+          <span>Character #{this.props.index + 1}: </span>
+          <span class="gameText">{this.props.name}</span>
+        </div>
         <table className="characterTable">
           <tbody>
             <tr>
@@ -137,12 +142,18 @@ function RandomChoices(props) {
   if (!options.includeHouse) {
     levels = levels.slice(1);
   }
-  shuffle(levels, options.seed);
+  var levelSeed = options.seed;
+  shuffle(levels, levelSeed);
+  while (levels[0] === "House") {
+    levelSeed += 1000;
+    shuffle(levels, levelSeed);
+  }
 
   var characters = [];
   var heads = [];
   var bodies = [];
   var weapons = [];
+  var initials = [];
 
   for (var i = 0; i < N_CHARACTERS; i++) {
     var validCharacter = false;
@@ -185,9 +196,20 @@ function RandomChoices(props) {
     heads.push(head);
     bodies.push(body);
     weapons.push(weapon);
+
+    var retryIndex = 0;
+    var name = makeName([head, body, weapon, retryIndex]);
+    while (initials.includes(name.charAt(0))) {
+      retryIndex += 1;
+      name = makeName([head, body, weapon, retryIndex]);
+    }
+    initials.push(name.charAt(0));
+
+    var index = characters.length;
+
     characters.push(
       new Character(
-        { head: head, body: body, weapon: weapon }
+        { head: head, body: body, weapon: weapon, name: name, index: index }
       )
     );
   }
