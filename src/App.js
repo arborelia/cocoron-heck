@@ -12,13 +12,13 @@ import weapon_sheet from './images/item-sheet-2.png';
 import makeName from './names';
 
 const HEADS = [
-  "HERO", "NINJA", "ROBOT", "ALIEN", "FIGHTER", "MONSTER", "GHOST", "?"
+  "Hero", "Ninja", "Robot", "Alien", "Fighter", "Monster", "Ghost", "?"
 ];
 const BODIES = [
-  "ARMOR", "WINGS", "JET", "CYBORG", "BOAT", "BUGGY", "TANK", "?"
+  "Armor", "Wing", "Jet", "Cyborg", "Boat", "Buggy", "Tank", "?"
 ];
 const WEAPONS = [
-  "PARASOL", "BOOMERANG", "SHURIKEN", "BALL", "PENCIL", "CRYSTAL", "FLOWER", "MELODY"
+  "Parasol", "Boomerang", "Shuriken", "Ball", "Pencil", "Crystal", "Flower", "Melody"
 ];
 const BODY_COLORS = [
   "red", "purple", "red", "green", "yellow", "green", "red", "red",

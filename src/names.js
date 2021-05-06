@@ -215,8 +215,7 @@ function makeName(seed) {
     var nameChoice = Math.floor(rng() * NAMES.length);
     var vowelChoice = Math.floor(rng() * VOWELS.length);
     var name = NAMES[nameChoice].replace('?', VOWELS[vowelChoice]);
-    name = name.charAt(0).toUpperCase() + name.slice(1);
-    return name
+    return name.toUpperCase();
 }
 
 export default makeName;
