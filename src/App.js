@@ -93,7 +93,7 @@ class Character extends React.Component {
       <div className="character">
         <div className="characterName">
           <span>Character #{this.props.index + 1}: </span>
-          <span class="gameText">{this.props.name}</span>
+          <span className="gameText">{this.props.name}</span>
         </div>
         <table className="characterTable">
           <tbody>
