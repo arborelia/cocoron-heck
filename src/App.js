@@ -8,8 +8,9 @@ import spritesheet_green from './images/cocoron-sheet-green.gif';
 import spritesheet_blue from './images/cocoron-sheet-blue.gif';
 import spritesheet_purple from './images/cocoron-sheet-purple.gif';
 import spritesheet_pink from './images/cocoron-sheet-pink.gif';
+import spritesheet_brown from './images/cocoron-sheet-brown.gif';
 import weapon_sheet from './images/item-sheet-2.png';
-import makeName from './names';
+import getName from './names';
 
 const HEADS = [
   "Hero", "Ninja", "Robot", "Alien", "Fighter", "Monster", "Ghost", "?"
@@ -21,9 +22,9 @@ const WEAPONS = [
   "Parasol", "Boomerang", "Shuriken", "Ball", "Pencil", "Crystal", "Flower", "Melody"
 ];
 const BODY_COLORS = [
-  "red", "purple", "red", "green", "yellow", "green", "red", "red",
+  "red", "purple", "brown", "green", "yellow", "green", "red", "red",
   "blue", "red", "red", "pink", "red", "red", "red", "red",
-  "red", "red", "blue", "blue", "red", "purple", "blue", "red"
+  "brown", "red", "blue", "blue", "red", "purple", "blue", "brown"
 ];
 const WEAPON_OFFSETS = [
   24, 51, 69, 96, 114, 131, 158, 176
@@ -34,7 +35,8 @@ const SPRITESHEETS = {
   green: spritesheet_green,
   blue: spritesheet_blue,
   purple: spritesheet_purple,
-  pink: spritesheet_pink
+  pink: spritesheet_pink,
+  brown: spritesheet_brown
 };
 
 const LEVELS = [
@@ -153,7 +155,6 @@ function RandomChoices(props) {
   var heads = [];
   var bodies = [];
   var weapons = [];
-  var initials = [];
 
   for (var i = 0; i < N_CHARACTERS; i++) {
     var validCharacter = false;
@@ -198,15 +199,9 @@ function RandomChoices(props) {
     weapons.push(weapon);
 
     var retryIndex = 0;
-    var name = makeName([head, body, weapon, retryIndex]);
-    while (initials.includes(name.charAt(0))) {
-      retryIndex += 1;
-      name = makeName([head, body, weapon, retryIndex]);
-    }
-    initials.push(name.charAt(0));
+    var name = getName(head, body, weapon);
 
     var index = characters.length;
-
     characters.push(
       new Character(
         { head: head, body: body, weapon: weapon, name: name, index: index }
